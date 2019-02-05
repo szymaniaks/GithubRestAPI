@@ -1,11 +1,13 @@
 package szymaniaks.githubrest.services;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.junit4.SpringRunner;
 import szymaniaks.githubrest.exceptions.RepositoryNotFoundException;
 import szymaniaks.githubrest.model.GithubInputDTO;
@@ -43,8 +45,9 @@ public class GithubServiceImplTest {
     }
 
     @Test(expected = RepositoryNotFoundException.class)
+    @Repeat(3)
     public void shouldThrowRepositoryNotFoundException() {
         //when
-        githubService.getRepositoryResponseEntity("notExistingUsername", "notExistingRepository");
+        githubService.getRepositoryResponseEntity(RandomStringUtils.randomAlphabetic(12), RandomStringUtils.randomAlphabetic(12));
     }
 }
